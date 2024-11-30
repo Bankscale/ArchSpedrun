@@ -37,7 +37,6 @@ then
  else
 
     # Formats the partitions
-    mkfs.fat -F 32 "$1"p1
     mkfs.fat -F 32 "$1"1
     mkfs.ext4 "$1"2
     mkfs.ext4 "$1"3
@@ -45,7 +44,6 @@ then
     swapon "$1"4
 
     # Mounts the drives
-    mount "$1"p2 /mnt
     mount "$1"2 /mnt
     mkdir /mnt/boot
     mount "$1"1 /mnt/boot
