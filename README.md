@@ -1,4 +1,4 @@
-Check lsblk before running - no safety checks
+Check lsblk before running!!
 
 chmod +x both
 
