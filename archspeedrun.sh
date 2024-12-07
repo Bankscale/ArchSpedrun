@@ -5,15 +5,6 @@ if [ "$EUID" != 0 ]
     exit
 fi
 
-  # Added check before wiping disks
-while true; do
-    read -p "Is $1 the correct disk? " yn
-    case $yn in
-      [Yy]* ) install $1 $2 $3; break;;
-      [Nn]* ) exit;;
-    esac
-done
-
 install() {
   # Removes all partitions on drive
   sgdisk --zap-all "$1"
@@ -75,3 +66,12 @@ install() {
 
   rm "$0"
 }
+
+  # Added check before wiping disks
+while true; do
+    read -p "Is $1 the correct disk? " yn
+    case $yn in
+      [Yy]* ) install $1 $2 $3; break;;
+      [Nn]* ) exit;;
+    esac
+done
