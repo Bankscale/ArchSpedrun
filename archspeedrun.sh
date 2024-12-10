@@ -64,7 +64,7 @@ install() {
   # Executes second part after chroot
   arch-chroot /mnt ./archspeedrunp2.sh "$2" "$3"
 
-  rm "$0"
+ # rm "$0"
 }
 
   # Added check before wiping disks
