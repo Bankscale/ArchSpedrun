@@ -72,9 +72,9 @@ install() {
   arch-chroot /mnt sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/g' /etc/default/grub
   arch-chroot /mnt grub-install --efi-directory /boot
   arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-  arch-chroot /mnt echo "$2" > /etc/hostname
+  arch-chroot /mnt echo "$2" | tee -a /mnt/etc/hostname
   arch-chroot /mnt useradd -m -G wheel -s /bin/zsh "$3"
-  arch-chroot /mnt echo please set user and root password with passwd
+  echo please set user and root password with passwd
 
 
 }
