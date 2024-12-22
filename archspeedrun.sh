@@ -58,13 +58,25 @@ install() {
 
   genfstab -U /mnt > /mnt/etc/fstab
 
-  # Copies post-chroot part two onto /mnt
-  cp ./archspeedrunp2.sh /mnt
 
   # Executes second part after chroot
-  arch-chroot /mnt ./archspeedrunp2.sh "$2" "$3"
+  arch-chroot /mnt pacman-key --init
+  arch-chroot /mnt pacman-key --populate archlinux
+  arch-chroot /mnt systemctl enable sshd
+  arch-chroot /mnt systemctl enable dhcpcd
+  arch-chroot /mnt systemctl enable NetworkManager
+  arch-chroot /mnt systemctl enable sddm
+  arch-chroot /mnt timedatectl set-timezone America/Chicago
+  arch-chroot /mnt localectl set-locale LANG=en_US.UTF-8
+  arch-chroot /mnt sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers
+  arch-chroot /mnt sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/g' /etc/default/grub
+  arch-chroot /mnt grub-install --efi-directory /boot
+  arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+  arch-chroot /mnt echo "$2" > /etc/hostname
+  arch-chroot /mnt useradd -m -G wheel -s /bin/zsh "$3"
+  arch-chroot /mnt echo please set user and root password with passwd
 
- # rm "$0"
+
 }
 
   # Added check before wiping disks
