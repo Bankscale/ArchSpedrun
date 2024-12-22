@@ -24,8 +24,8 @@ install() {
 
       # Formats the partitions
       mkfs.fat -F 32 "$1"p1
-      mkfs.ext4 "$1"p2
-      mkfs.ext4 "$1"p3
+      mkfs.ext4 -F "$1"p2
+      mkfs.ext4 -F "$1"p3
       mkswap "$1"p4
       swapon "$1"p4
       
@@ -39,8 +39,8 @@ install() {
 
       # Formats the partitions
       mkfs.fat -F 32 "$1"1
-      mkfs.ext4 "$1"2
-      mkfs.ext4 "$1"3
+      mkfs.ext4 -F "$1"2
+      mkfs.ext4 -F "$1"3
       mkswap "$1"4
       swapon "$1"4
 
