@@ -53,7 +53,7 @@ install() {
   fi
 
   # Installs all "base" packages
-  pacstrap -G /mnt base base-devel linux linux-firmware linux-headers vim zsh kitty sudo grub efibootmgr rofi dhcpcd networkmanager hyprland git wget curl openssh gdisk tldr btop fzf zsh-syntax-highlighting pipewire pipewire-alsa pipewire-jack pipewire-pulse wireplumber python python-virtualenv sddm os-prober sof-firmware hyprpaper hyprpolkitagent playerctl ranger ntfs-3g udiskie power-profiles-daemon bluez
+  pacstrap -G /mnt base base-devel linux linux-firmware linux-headers vim zsh kitty sudo grub efibootmgr rofi dhcpcd networkmanager hyprland git wget curl openssh gdisk tldr btop fzf zsh-syntax-highlighting pipewire pipewire-alsa pipewire-jack pipewire-pulse wireplumber python python-virtualenv sddm os-prober sof-firmware hyprpaper hyprpolkitagent playerctl ranger ntfs-3g udiskie power-profiles-daemon bluez code
 
 
   genfstab -U /mnt > /mnt/etc/fstab
@@ -68,6 +68,7 @@ install() {
   arch-chroot /mnt systemctl enable sddm
   arch-chroot /mnt timedatectl set-timezone America/Chicago
   arch-chroot /mnt localectl set-locale LANG=en_US.UTF-8
+# enables sudo
   arch-chroot /mnt sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /etc/sudoers
   arch-chroot /mnt sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/g' /etc/default/grub
   arch-chroot /mnt grub-install --efi-directory /boot
