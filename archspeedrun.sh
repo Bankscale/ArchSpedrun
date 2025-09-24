@@ -11,7 +11,7 @@ install() {
 
   # Creates boot, root, swap, home partitions
   sgdisk -n 1:0:+1G -t 1:ef00 "$1"
-  sgdisk -n 2:0:+100G -t 1:8300 "$1"
+  sgdisk -n 2:0:+"$4"G -t 1:8300 "$1"
   sgdisk -n 3:-4G:0 -t 1:8200 "$1"
   sgdisk -n 4:0:0 -t 1:8300 "$1"
 
@@ -46,7 +46,7 @@ install() {
       mkswap "$1"4
       swapon "$1"4
 
-	  sleep 10
+	  sleep 3
 
       # Mounts the drives
       mount "$1"2 /mnt
@@ -57,7 +57,7 @@ install() {
   fi
 
   # Installs all "base" packages
-  pacstrap -G /mnt base base-devel linux linux-firmware linux-headers vim zsh kitty sudo grub efibootmgr rofi dhcpcd networkmanager hyprland git wget curl openssh gdisk tldr btop fzf zsh-syntax-highlighting pipewire pipewire-alsa pipewire-jack pipewire-pulse wireplumber python python-virtualenv sddm os-prober sof-firmware hyprpaper hyprpolkitagent playerctl ranger ntfs-3g udiskie power-profiles-daemon bluez code
+  pacstrap -G /mnt base base-devel linux linux-firmware linux-headers vim zsh kitty sudo grub efibootmgr rofi dhcpcd networkmanager hyprland git wget curl openssh gdisk tldr btop fzf zsh-syntax-highlighting pipewire pipewire-alsa pipewire-jack pipewire-pulse wireplumber python python-virtualenv os-prober sof-firmware hyprpaper hyprpolkitagent playerctl ranger ntfs-3g udiskie power-profiles-daemon bluez code brightnessctl
 
 
   genfstab -U /mnt > /mnt/etc/fstab
@@ -69,7 +69,6 @@ install() {
   arch-chroot /mnt systemctl enable sshd
   arch-chroot /mnt systemctl enable dhcpcd
   arch-chroot /mnt systemctl enable NetworkManager
-  arch-chroot /mnt systemctl enable sddm
   arch-chroot /mnt timedatectl set-timezone America/Chicago
   arch-chroot /mnt localectl set-locale LANG=en_US.UTF-8
 # enables sudo
@@ -88,7 +87,7 @@ install() {
 while true; do
     read -p "Is $1 the correct disk? " yn
     case $yn in
-      [Yy]* ) install $1 $2 $3; break;;
+      [Yy]* ) install $1 $2 $3 $4; break;;
       [Nn]* ) exit;;
     esac
 done
