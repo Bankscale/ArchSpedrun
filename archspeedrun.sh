@@ -28,6 +28,8 @@ install() {
       mkfs.ext4 -F "$1"p3
       mkswap "$1"p4
       swapon "$1"p4
+	  
+	  sleep 10		
       
       # Mounts the drives
       mount "$1"p2 /mnt
@@ -43,6 +45,8 @@ install() {
       mkfs.ext4 -F "$1"3
       mkswap "$1"4
       swapon "$1"4
+
+	  sleep 10
 
       # Mounts the drives
       mount "$1"2 /mnt
